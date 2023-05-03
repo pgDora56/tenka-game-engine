@@ -1,6 +1,6 @@
 # coding=utf-8
 from game import Game
-from games import Ito
+from games import Ito, WordWolf
 
 import discord
 import json
@@ -34,7 +34,7 @@ async def on_message(message):
         return
 
     exist = False
-    if type(message.channel) == discord.channel.DMChannel:
+    if isinstance(message.channel, discord.channel.DMChannel):
         exist = await game.on_direct_message(message)
     else:
         exist = await game.on_group_message(message)
@@ -50,6 +50,10 @@ async def on_message(message):
             if gname == "ito":
                 game = Ito()
                 await message.channel.send("Start ito")
+                print(f"Game: {game.name}")
+            if gname == "wordwolf":
+                game = WordWolf()
+                await message.channel.send("Start wordwolf")
                 print(f"Game: {game.name}")
 
 
